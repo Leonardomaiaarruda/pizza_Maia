@@ -7,6 +7,7 @@ let modalpizzaClicada = 0;
 let pizzaClicada;
 let pizzaNameSize = '';
 let pizzaName = '';
+let desconto = 0;
 let total = 0;
 
 const ql = (el)=>document.querySelector(el)
@@ -24,7 +25,7 @@ pizzaJson.map((item, index)=>{
 
 
     //Clonado a pizza-item como referencia e inserindo na pizza-area
-    pizzaItem.querySelector('.pizza-item--img img').src = './images/pizza1.png';
+    pizzaItem.querySelector('.pizza-item--img img').src = item.img;
     pizzaItem.querySelector('.pizza-item--name').innerHTML = item.name; 
     pizzaItem.querySelector('.pizza-item--desc').innerHTML = item.description;
     pizzaItem.querySelector('.pizza-item--price').innerHTML = item.price[2];
@@ -49,6 +50,7 @@ pizzaJson.map((item, index)=>{
         if(indexdoTamanho === 2){
             size.classList.add('selected');
         }
+
         //Nessa função o size pega todos os .pizzaInfo--size 
         //Nessa função o indexdoTamanho pegas todas as posições do size
         size.querySelector('.pizzaInfo--size span').innerHTML = pizzaJson[pizzaClicada].sizes[indexdoTamanho];
@@ -97,21 +99,32 @@ ql('.pizzaInfo--qtmenos').addEventListener('click', ()=>{
 
 //Adiciona quantidade de pizza no modal
 ql('.pizzaInfo--qtmais').addEventListener('click', ()=>{
-     modalQt++;
-    ql('.pizzaInfo--qt').innerHTML = modalQt;
+     modalQt++;    
+    ql('.pizzaInfo--qt').innerHTML = modalQt ;
+
 });
 
 
 
 
 pizzaJson.map((item)=>{
-   
-
     //Selecionando o tamanho da pizza
     qlol('.pizzaInfo--size').forEach((size, indexdoTamanho)=>{
         size.addEventListener('click', (i)=>{
             ql('.pizzaInfo--size.selected').classList.remove('selected');
             size.classList.add('selected')
+
+            if(indexdoTamanho === 0){
+                size.classList.add('selected');
+                ql('.pizzaInfo--actualPrice').innerHTML = pizzaJson[pizzaClicada].price[0];
+            }else if(indexdoTamanho === 1){
+                size.classList.add('selected');
+                ql('.pizzaInfo--actualPrice').innerHTML = pizzaJson[pizzaClicada].price[1];
+            }else if(indexdoTamanho === 2){
+                size.classList.add('selected');
+                ql('.pizzaInfo--actualPrice').innerHTML = pizzaJson[pizzaClicada].price[2];
+            }
+    
              
         });  
     });
@@ -158,7 +171,6 @@ function updateCart(){
 
         
         let subtotal = 0;
-        let desconto = 0;
 
         for(let i in cart){
             let pizzaItem = pizzaJson.find((item)=>{
@@ -173,13 +185,13 @@ function updateCart(){
            
             switch(cart[i].size){
                 case 0:
-                    pizzaName = '&nbsp;&nbsp; Tamanho P';
+                    pizzaName = '&nbsp;&nbsp; P';
                     break
                 case 1:
-                    pizzaName = '&nbsp;&nbsp; Tamanho M';
+                    pizzaName = '&nbsp;&nbsp; M';
                     break
                 case 2:
-                    pizzaName = '&nbsp;&nbsp; Tamanho G';
+                    pizzaName = '&nbsp;&nbsp; G';
     
             };
 
@@ -211,7 +223,7 @@ function updateCart(){
 
          ql('.subtotal span:last-child').innerHTML = subtotal.toFixed(2); 
          ql('.desconto span:last-child').innerHTML = desconto.toFixed(2);
-         ql('.total span:last-child').innerHTML = total ;
+         ql('.total span:last-child').innerHTML = total.toFixed(2) ;
        
     }else{
         ql('aside').classList.remove('show')
@@ -234,14 +246,13 @@ Quantidade: ${el.qt}
             `
 
         });
+        let d = `Você teve um desconto de ${desconto.toFixed(2)} Reais`
         let valorTotal = ` Valor Total R$  ${total.toFixed(2)} Reais`
         
-        let lembrete = 'Lembrando que os tamanhos 0 , 1 , 2 é igual a P , M , G'
-
 
         
         let encode = encodeURI(wp)
-        whatsappUrl = `http://api.whatsapp.com/send?phone=5544997576872&text=${init}%0A${encode}%0A${valorTotal}%0A${lembrete}`;
+        whatsappUrl = `http://api.whatsapp.com/send?phone=5544997576872&text=${init}%0A${encode}%0A${d}}%0A${valorTotal}`;
 
         setTimeout(()=>window.open(whatsappUrl, "_blank"), 200);
     });

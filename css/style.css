@@ -25,6 +25,26 @@ header {
     align-items: center;
 }
 
+header h4{
+    color:white;
+}
+
+header h2{
+    margin-right:70px;
+    animation: go-back 3s ease-in infinite;
+}
+
+@keyframes go-back {
+    0% {
+        transform: translateX(0px);
+        color:rgb(255, 255, 255);
+    }
+    100% {
+        transform: translateX(70px);
+        color:#399ade;
+    }
+}
+
 /*Menu mobile*/
 .menu-openner {
     margin-right: 15px;
@@ -87,9 +107,7 @@ h1 {
 .pizza-item--img {
     width:200px;
     height:200px;
-    background-color:#EEE;
     border-radius:100px;
-    box-shadow:0px 10px 50px rgba(0, 0, 0, 0.2);
 }
 .pizza-item--img img {
     width:100%;
