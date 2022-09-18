@@ -1,6 +1,9 @@
 import  {pizzaJson} from "./js/pizzas.js";
 import {fecharModal}  from "./js/fecharModal.js";
 
+
+
+
 var cart = [];
 let modalQt = 1; //Quantidade de pizzas selecinadas no modal;
 let modalpizzaClicada = 0;
@@ -12,7 +15,8 @@ let total = 0;
 
 const ql = (el)=>document.querySelector(el)
 const qlol = (el)=>document.querySelectorAll(el);
-
+ql("header h2").style.display = 'none';
+ql("header h4").style.display = 'none';
 
 
 
@@ -28,7 +32,7 @@ pizzaJson.map((item, index)=>{
     pizzaItem.querySelector('.pizza-item--img img').src = item.img;
     pizzaItem.querySelector('.pizza-item--name').innerHTML = item.name; 
     pizzaItem.querySelector('.pizza-item--desc').innerHTML = item.description;
-    pizzaItem.querySelector('.pizza-item--price').innerHTML = item.price[2];
+    pizzaItem.querySelector('.pizza-item--price').innerHTML = item.price[2].toFixed(2);
     pizzaItem.querySelector('a').addEventListener('click', (e)=>  {//clicando na pizza (a)
      e.preventDefault(); 
      pizzaClicada = e.target.closest('.pizza-item').getAttribute('data-key');
@@ -167,6 +171,8 @@ function updateCart(){
     ql('.menu-openner span').innerHTML = cart.length;
     ql('.cart').innerHTML = '';
     if(cart.length > 0){
+        ql("header h2").style.display = 'block';
+        ql("header h4").style.display = 'block';
         ql('aside').classList.add('show')
 
         
@@ -224,8 +230,11 @@ function updateCart(){
          ql('.subtotal span:last-child').innerHTML = subtotal.toFixed(2); 
          ql('.desconto span:last-child').innerHTML = desconto.toFixed(2);
          ql('.total span:last-child').innerHTML = total.toFixed(2) ;
+
        
     }else{
+        ql("header h2").style.display = 'none';
+        ql("header h4").style.display = 'none';
         ql('aside').classList.remove('show')
         ql('aside').style.left = '100vw';
     };

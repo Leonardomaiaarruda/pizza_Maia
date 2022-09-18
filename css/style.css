@@ -362,6 +362,12 @@ h1 {
     .pizza-area {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .pizza-item--img {
+        width:180px;
+        height:180px;
+        border-radius:90px;
+    }
 }
 
 @media (max-width:840px) {
@@ -416,12 +422,12 @@ h1 {
     }
 
     .pizzaBig img {
-        width: 75%;
+        width: 70%;
         height: auto;
     }
 
     .pizzaInfo h1 {
-        margin-top:20px;
+        margin-top:15px;
     }
 
     .pizzaInfo--qtarea {
