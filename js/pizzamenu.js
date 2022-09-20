@@ -1,5 +1,5 @@
-import  {pizzaJson} from "./js/pizzas.js";
-import {fecharModal}  from "./js/fecharModal.js";
+import  {pizzaJson} from "./pizzas.js";
+import {fecharModal}  from "./fecharModal.js";
 
 
 var cart = [];
@@ -15,10 +15,10 @@ const ql = (el)=>document.querySelector(el)
 const qlol = (el)=>document.querySelectorAll(el);
 
 
-
 pizzaJson.map((item, index)=>{
     ql("header h2").style.display = 'none';
     ql("header h4").style.display = 'none';
+
     // Clonando o pizza-item e colocando as info em pizza-area
     let pizzaItem = ql('.models .pizza-item').cloneNode(true); 
 
@@ -72,7 +72,7 @@ pizzaJson.map((item, index)=>{
     
 });
 
- 
+   
 //Aqui sera inserido os item do pizzaJson da pasta pizza.js
 ql('.pizza-area').append(pizzaItem);
 
@@ -82,6 +82,9 @@ ql('.pizza-area').append(pizzaItem);
 qlol('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((e)=>{
     e.addEventListener('click', fecharModal);
 });
+
+
+   
 
 
 
@@ -102,18 +105,6 @@ ql('.pizzaInfo--qtmais').addEventListener('click', ()=>{
 
 });
 
-qlol("main nav a").forEach((e, index)=>{
-    e.addEventListener('click', (i)=>{
-      i.preventDefault();
-    })
-})
-
-qlol("main nav a").forEach((e, index)=>{
-    e.addEventListener('click', ()=>{     
-       ql('main nav a.selecionado').classList.remove('selecionado');
-        e.classList.add('selecionado');        
-    })
-})
 
 
 
@@ -255,7 +246,7 @@ function updateCart(){
         let whatsappUrl
         cart.map((el)=>{        
             wp += ` 
-Lanche: ${el.name } 
+Nome: ${el.name } 
 Tamanho: ${el.size}
 Quantidade: ${el.qt}
             `
